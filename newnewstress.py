@@ -35,7 +35,7 @@ train_data = train_datagen.flow_from_directory(
     directory="D:/facesData/train",
     target_size=(224, 224),
     batch_size=32,
-    class_mode='categorical'  # Use 'categorical' class mode for multi-class classification
+    class_mode='categorical' 
 )
 
 val_datagen = ImageDataGenerator(rescale=1./255)
@@ -44,15 +44,15 @@ val_data = val_datagen.flow_from_directory(
     directory="D:/facesData/test",
     target_size=(224, 224),
     batch_size=32,
-    class_mode='categorical'  # Use 'categorical' class mode for multi-class classification
+    class_mode='categorical'  
 )
 
-# Define early stopping and model checkpoint callbacks
+
 es = EarlyStopping(monitor='val_accuracy', min_delta=0.01, patience=5, verbose=1, mode='auto')
 mc = ModelCheckpoint(filepath="D:/best_model.keras", monitor='val_accuracy', verbose=1, save_best_only=True, mode='auto')
 callbacks = [es, mc]
 
-# Train the model
+
 history = model.fit(
     train_data,
     epochs=10,
@@ -60,10 +60,10 @@ history = model.fit(
     callbacks=callbacks
 )
 
-# Load the best model
+
 best_model = load_model("D:/best_model.keras")
 
-# Plot training history
+
 plt.plot(history.history['accuracy'], label='train_accuracy')
 plt.plot(history.history['val_accuracy'], label='val_accuracy')
 plt.xlabel('Epoch')
